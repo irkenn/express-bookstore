@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS bookstore;
-CREATE DATABASE bookstore;
+DROP DATABASE IF EXISTS bookstore_test;
+CREATE DATABASE bookstore_test;
 
-\c bookstore;
+\c bookstore_test;
 
 DROP TABLE IF EXISTS books;
 

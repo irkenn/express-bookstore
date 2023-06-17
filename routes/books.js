@@ -1,6 +1,6 @@
 const express = require("express");
 const Book = require("../models/book");
-
+const booksMiddleware = require('../middleware/books');
 const router = new express.Router();
 
 
@@ -28,13 +28,14 @@ router.get("/:id", async function (req, res, next) {
 
 /** POST /   bookData => {book: newBook}  */
 
-router.post("/", async function (req, res, next) {
-  try {
-    const book = await Book.create(req.body);
-    return res.status(201).json({ book });
-  } catch (err) {
-    return next(err);
-  }
+router.post("/", booksMiddleware.validateSchema,
+  async function (req, res, next) {
+    try {
+      const book = await Book.create(req.body);
+      return res.status(201).json({ book });
+    } catch (err) {
+      return next(err);
+    }
 });
 
 /** PUT /[isbn]   bookData => {book: updatedBook}  */
